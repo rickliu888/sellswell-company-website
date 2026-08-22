@@ -76,7 +76,7 @@ export default function SiteHeader() {
   } as CSSProperties;
 
   return <header className={`nav-shell${navigating ? " is-navigating" : ""}`}>
-    <a className="brand" href="/" aria-label={lang === "zh" ? "返回事为电商首页" : "Return to SellsWell home"}><img src="/assets/brand/logo-white.png" width="2235" height="764" fetchPriority="high" decoding="async" alt="事为电商 SellsWell E-commerce" /></a>
+    <a className="brand" href="/" aria-label={lang === "zh" ? "返回事为电商首页" : "Return to SellsWell home"}><img src="/assets/brand/logo-white.png?v=20260822-2" width="2235" height="764" fetchPriority="high" decoding="async" alt="事为电商 SellsWell E-commerce" /></a>
     <nav id="site-navigation" ref={navRef} className={menuOpen ? "mobile-open" : ""} aria-label={lang === "zh" ? "主导航" : "Main navigation"}>
       {nav.map(([href, zh, en]) => <a className={pathname === href ? "active" : ""} href={href} key={href} onClick={() => { setMenuOpen(false); if (pathname !== href) setNavigating(true); }}>{lang === "zh" ? zh : en}</a>)}
       <i className={`nav-indicator${indicator.ready ? " ready" : ""}`} style={style} aria-hidden="true" />

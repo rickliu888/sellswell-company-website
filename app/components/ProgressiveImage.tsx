@@ -14,6 +14,8 @@ type ProgressiveImageProps = {
 };
 
 const widths = [480, 960, 1440, 1920];
+const assetVersion = "20260822-2";
+const versioned = (url: string) => `${url}?v=${assetVersion}`;
 
 export default function ProgressiveImage({
   src,
@@ -28,11 +30,11 @@ export default function ProgressiveImage({
   const [loaded, setLoaded] = useState(false);
   const imageRef = useRef<HTMLImageElement>(null);
   const available = widths.filter((candidate) => candidate <= width);
-  const webpSrcSet = available.map((candidate) => `${optimizedBase}-${candidate}.webp ${candidate}w`).join(", ");
-  const avifSrcSet = available.map((candidate) => `${optimizedBase}-${candidate}.avif ${candidate}w`).join(", ");
+  const webpSrcSet = available.map((candidate) => `${versioned(`${optimizedBase}-${candidate}.webp`)} ${candidate}w`).join(", ");
+  const avifSrcSet = available.map((candidate) => `${versioned(`${optimizedBase}-${candidate}.avif`)} ${candidate}w`).join(", ");
   const style = {
     "--image-ratio": `${width} / ${height}`,
-    "--image-placeholder": `url(${optimizedBase}-placeholder.webp)`,
+    "--image-placeholder": `url(${versioned(`${optimizedBase}-placeholder.webp`)})`,
   } as CSSProperties;
 
   useEffect(() => {
@@ -49,7 +51,7 @@ export default function ProgressiveImage({
       {webpSrcSet && <source type="image/webp" srcSet={webpSrcSet} sizes={sizes} />}
       <img
         ref={imageRef}
-        src={src}
+        src={versioned(src)}
         alt={alt}
         width={width}
         height={height}

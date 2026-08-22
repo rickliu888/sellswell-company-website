@@ -66,6 +66,17 @@ test("production container includes public static assets", async () => {
   assert.match(dockerfile, /static-server\.mjs/);
 });
 
+test("cache-busts production media after the static asset recovery", async () => {
+  const [image, video, header] = await Promise.all([
+    readFile(new URL("../app/components/ProgressiveImage.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/VideoPlaceholder.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/SiteHeader.tsx", import.meta.url), "utf8"),
+  ]);
+  assert.match(image, /assetVersion = "20260822-2"/);
+  assert.match(video, /shiwei-team-building\.mp4\?v=20260822-2/);
+  assert.match(header, /logo-white\.png\?v=20260822-2/);
+});
+
 test("language switch updates document and social metadata", async () => {
   const language = await readFile(new URL("../app/components/useLanguage.ts", import.meta.url), "utf8");
   assert.match(language, /document\.documentElement\.lang/);
