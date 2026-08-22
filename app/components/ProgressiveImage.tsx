@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, useState } from "react";
+import { CSSProperties, SyntheticEvent, useEffect, useRef, useState } from "react";
 
 type ProgressiveImageProps = {
   src: string;
@@ -26,17 +26,29 @@ export default function ProgressiveImage({
   priority = false,
 }: ProgressiveImageProps) {
   const [loaded, setLoaded] = useState(false);
+  const imageRef = useRef<HTMLImageElement>(null);
   const available = widths.filter((candidate) => candidate <= width);
-  const srcSet = available.map((candidate) => `${optimizedBase}-${candidate}.webp ${candidate}w`).join(", ");
+  const webpSrcSet = available.map((candidate) => `${optimizedBase}-${candidate}.webp ${candidate}w`).join(", ");
+  const avifSrcSet = available.map((candidate) => `${optimizedBase}-${candidate}.avif ${candidate}w`).join(", ");
   const style = {
     "--image-ratio": `${width} / ${height}`,
     "--image-placeholder": `url(${optimizedBase}-placeholder.webp)`,
   } as CSSProperties;
 
+  useEffect(() => {
+    if (imageRef.current?.complete && imageRef.current.naturalWidth > 0) setLoaded(true);
+  }, [src]);
+
+  const reveal = (event: SyntheticEvent<HTMLImageElement>) => {
+    if (event.currentTarget.naturalWidth > 0) setLoaded(true);
+  };
+
   return <span className={`progressive-image ${className}${loaded ? " is-loaded" : ""}`} style={style}>
     <picture>
-      {srcSet && <source type="image/webp" srcSet={srcSet} sizes={sizes} />}
+      {avifSrcSet && <source type="image/avif" srcSet={avifSrcSet} sizes={sizes} />}
+      {webpSrcSet && <source type="image/webp" srcSet={webpSrcSet} sizes={sizes} />}
       <img
+        ref={imageRef}
         src={src}
         alt={alt}
         width={width}
@@ -44,7 +56,8 @@ export default function ProgressiveImage({
         loading={priority ? "eager" : "lazy"}
         fetchPriority={priority ? "high" : "auto"}
         decoding="async"
-        onLoad={() => setLoaded(true)}
+        onLoad={reveal}
+        onError={() => setLoaded(true)}
       />
     </picture>
   </span>;

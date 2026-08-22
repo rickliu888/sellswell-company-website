@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sellswell-company.jannica-8000.chatgpt.site/sitemap.xml
+Host: https://sellswell-company.jannica-8000.chatgpt.site
