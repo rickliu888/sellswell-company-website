@@ -1,8 +1,9 @@
 "use client";
+/* eslint-disable @next/next/no-html-link-for-pages, @next/next/no-img-element -- Native navigation avoids vinext's broken RSC prefetch; the 39 KB logo is already optimized. */
 
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { CSSProperties, useEffect, useRef, useState } from "react";
+import { applyLanguageMetadata } from "./useLanguage";
 
 const nav = [
   ["/", "首页", "Home"],
@@ -15,8 +16,8 @@ const nav = [
 
 export default function SiteHeader() {
   const pathname = usePathname();
-  const router = useRouter();
   const navRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [navigating, setNavigating] = useState(false);
   const [lang, setLang] = useState<"zh" | "en">("zh");
@@ -27,7 +28,7 @@ export default function SiteHeader() {
     queueMicrotask(() => {
       const initial = stored === "zh" || stored === "en" ? stored : navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
       setLang(initial);
-      document.documentElement.lang = initial === "zh" ? "zh-CN" : "en";
+      if (initial === "en") applyLanguageMetadata(initial);
     });
   }, []);
 
@@ -45,23 +46,27 @@ export default function SiteHeader() {
   }, [pathname]);
 
   useEffect(() => {
-    const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
-    if (connection?.saveData || connection?.effectiveType === "2g") return;
-    const warmRoutes = () => nav.forEach(([href]) => href !== pathname && router.prefetch(href));
-    const idleId = "requestIdleCallback" in window
-      ? window.requestIdleCallback(warmRoutes, { timeout: 2200 })
-      : window.setTimeout(warmRoutes, 1200);
-    return () => {
-      if ("cancelIdleCallback" in window) window.cancelIdleCallback(idleId);
-      else window.clearTimeout(idleId);
+    if (!menuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    navRef.current?.querySelector<HTMLAnchorElement>("a")?.focus();
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setMenuOpen(false);
+      requestAnimationFrame(() => menuButtonRef.current?.focus());
     };
-  }, [pathname, router]);
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [menuOpen]);
 
   const toggleLanguage = () => {
     const next = lang === "zh" ? "en" : "zh";
     setLang(next);
-    document.documentElement.lang = next === "zh" ? "zh-CN" : "en";
     localStorage.setItem("sellswell-language", next);
+    applyLanguageMetadata(next);
     window.dispatchEvent(new CustomEvent("sellswell-language-change", { detail: next }));
   };
 
@@ -71,12 +76,12 @@ export default function SiteHeader() {
   } as CSSProperties;
 
   return <header className={`nav-shell${navigating ? " is-navigating" : ""}`}>
-    <Link className="brand" href="/" prefetch aria-label={lang === "zh" ? "返回事为电商首页" : "Return to SellsWell home"}><img src="/assets/brand/logo-white.png" width="2235" height="764" fetchPriority="high" decoding="async" alt="事为电商 SellsWell E-commerce" /></Link>
-    <nav ref={navRef} className={menuOpen ? "mobile-open" : ""} aria-label={lang === "zh" ? "主导航" : "Main navigation"}>
-      {nav.map(([href, zh, en]) => <Link className={pathname === href ? "active" : ""} href={href} prefetch={false} key={href} onMouseEnter={() => router.prefetch(href)} onPointerDown={() => router.prefetch(href)} onFocus={() => router.prefetch(href)} onClick={() => { setMenuOpen(false); if (pathname !== href) setNavigating(true); }}>{lang === "zh" ? zh : en}</Link>)}
+    <a className="brand" href="/" aria-label={lang === "zh" ? "返回事为电商首页" : "Return to SellsWell home"}><img src="/assets/brand/logo-white.png" width="2235" height="764" fetchPriority="high" decoding="async" alt="事为电商 SellsWell E-commerce" /></a>
+    <nav id="site-navigation" ref={navRef} className={menuOpen ? "mobile-open" : ""} aria-label={lang === "zh" ? "主导航" : "Main navigation"}>
+      {nav.map(([href, zh, en]) => <a className={pathname === href ? "active" : ""} href={href} key={href} onClick={() => { setMenuOpen(false); if (pathname !== href) setNavigating(true); }}>{lang === "zh" ? zh : en}</a>)}
       <i className={`nav-indicator${indicator.ready ? " ready" : ""}`} style={style} aria-hidden="true" />
     </nav>
     <button className="language" type="button" onClick={toggleLanguage}>{lang === "zh" ? "中 / EN" : "EN / 中"}</button>
-    <button className="menu-button" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-label={lang === "zh" ? "打开导航" : "Open navigation"}><i/><i/></button>
+    <button ref={menuButtonRef} className="menu-button" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="site-navigation" aria-label={lang === "zh" ? (menuOpen ? "关闭导航" : "打开导航") : (menuOpen ? "Close navigation" : "Open navigation")}><i/><i/></button>
   </header>;
 }

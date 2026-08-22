@@ -29,14 +29,14 @@ test("server-renders the SellsWell homepage and progressive media", async () => 
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>事为电商 \| 让世界重新认识中国品质<\/title>/);
+  assert.match(html, /<title>事为电商 SellsWell \| 让世界重新认识中国品质<\/title>/);
   assert.match(html, /让世界重新认识/);
   assert.match(html, /type="image\/avif"/);
   assert.match(html, /type="image\/webp"/);
   assert.match(html, /loading="lazy"/);
 });
 
-test("keeps navigation, loading feedback, and cache policy configured", async () => {
+test("keeps reliable navigation, accessible mobile controls, and cache policy configured", async () => {
   const [header, loading, image, video, worker, cache] = await Promise.all([
     readFile(new URL("../app/components/SiteHeader.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/loading.tsx", import.meta.url), "utf8"),
@@ -45,9 +45,11 @@ test("keeps navigation, loading feedback, and cache policy configured", async ()
     readFile(new URL("../worker/index.ts", import.meta.url), "utf8"),
     readFile(new URL("../public/_headers", import.meta.url), "utf8"),
   ]);
-  assert.match(header, /router\.prefetch\(href\)/);
-  assert.match(header, /requestIdleCallback/);
-  assert.match(header, /onPointerDown/);
+  assert.doesNotMatch(header, /next\/link|router\.prefetch/);
+  assert.match(header, /<a className=\{pathname === href/);
+  assert.match(header, /aria-expanded=\{menuOpen\}/);
+  assert.match(header, /event\.key !== "Escape"/);
+  assert.match(header, /document\.body\.style\.overflow = "hidden"/);
   assert.match(header, /\["\/", "首页", "Home"\]/);
   assert.match(loading, /route-loading/);
   assert.match(image, /image\/avif/);
@@ -56,4 +58,25 @@ test("keeps navigation, loading feedback, and cache policy configured", async ()
   assert.match(video, /preload="none"/);
   assert.match(worker, /stale-while-revalidate=86400/);
   assert.match(cache, /max-age=31536000, immutable/);
+});
+
+test("production container includes public static assets", async () => {
+  const dockerfile = await readFile(new URL("../Dockerfile.ecs", import.meta.url), "utf8");
+  assert.match(dockerfile, /COPY --from=build \/app\/public \.\/public/);
+});
+
+test("language switch updates document and social metadata", async () => {
+  const language = await readFile(new URL("../app/components/useLanguage.ts", import.meta.url), "utf8");
+  assert.match(language, /document\.documentElement\.lang/);
+  assert.match(language, /meta\[property="og:title"\]/);
+  assert.match(language, /meta\[name="twitter:description"\]/);
+  assert.match(language, /Global Business \| SellsWell E-commerce/);
+});
+
+test("provides a branded bilingual not-found page", async () => {
+  const notFound = await readFile(new URL("../app/not-found.tsx", import.meta.url), "utf8");
+  assert.match(notFound, /404 · PAGE NOT FOUND/);
+  assert.match(notFound, /没有找到这个页面/);
+  assert.match(notFound, /This page could not be found/);
+  assert.match(notFound, /href="\/"/);
 });

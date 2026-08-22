@@ -1,7 +1,24 @@
 "use client";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import SiteFooter from "./SiteFooter";
 import ProgressiveImage from "./ProgressiveImage";
 import useLanguage from "./useLanguage";
-export default function SiteFrame({children}:{active:string;children:ReactNode}){const lang=useLanguage(),[contactOpen,setContactOpen]=useState(false),[copied,setCopied]=useState(false);const copyWechat=async()=>{await navigator.clipboard.writeText("RickLiu1992");setCopied(true);setTimeout(()=>setCopied(false),1800)};return <main className="inner-site">{children}<SiteFooter lang={lang}/><button className="floating-contact" onClick={()=>setContactOpen(true)} aria-label={lang==="zh"?"咨询合作":"Partner with SellsWell"}><span aria-hidden="true">🤝</span>{lang==="zh"?"咨询合作":"PARTNER WITH US"}</button>{contactOpen&&<div className="modal-backdrop"><div className="contact-modal" role="dialog" aria-modal="true" aria-label={lang==="zh"?"商务合作联系方式":"Business contact details"}><button className="modal-close" onClick={()=>setContactOpen(false)} aria-label={lang==="zh"?"关闭":"Close"}>×</button><p className="eyebrow dark"><span/> BUSINESS CONTACT</p><h2>{lang==="zh"?"微信咨询":"WeChat consultation"}</h2><ProgressiveImage src="/assets/contact/wechat-business.png" optimizedBase="/assets/optimized/contact/wechat-business" width={760} height={760} sizes="230px" alt={lang==="zh"?"商务合作微信二维码":"Business contact WeChat QR code"}/><strong>{lang==="zh"?"请注明公司名称以及来意，谢谢":"Please include your company name and purpose."}</strong><div className="copy-row"><code>RickLiu1992</code><button onClick={copyWechat}>{copied?(lang==="zh"?"微信号已复制":"Copied"):(lang==="zh"?"复制微信号":"Copy ID")}</button></div><a className="modal-email" href="mailto:rick@sellswell.cn">rick@sellswell.cn ↗</a></div></div>}</main>}
+
+export default function SiteFrame({children}:{active:string;children:ReactNode}) {
+  const lang=useLanguage(),[contactOpen,setContactOpen]=useState(false),[copied,setCopied]=useState(false);
+  const triggerRef=useRef<HTMLButtonElement>(null),closeRef=useRef<HTMLButtonElement>(null);
+  useEffect(()=>{
+    if(!contactOpen)return;
+    const previousOverflow=document.body.style.overflow;
+    document.body.style.overflow="hidden";
+    closeRef.current?.focus();
+    const onKeyDown=(event:KeyboardEvent)=>{if(event.key==="Escape"){setContactOpen(false);requestAnimationFrame(()=>triggerRef.current?.focus())}};
+    window.addEventListener("keydown",onKeyDown);
+    return()=>{document.body.style.overflow=previousOverflow;window.removeEventListener("keydown",onKeyDown)};
+  },[contactOpen]);
+  const closeContact=()=>{setContactOpen(false);requestAnimationFrame(()=>triggerRef.current?.focus())};
+  const copyWechat=async()=>{await navigator.clipboard.writeText("RickLiu1992");setCopied(true);setTimeout(()=>setCopied(false),1800)};
+  return <main className="inner-site">{children}<SiteFooter lang={lang}/><button ref={triggerRef} className="floating-contact" onClick={()=>setContactOpen(true)} aria-label={lang==="zh"?"咨询合作":"Partner with SellsWell"}><span aria-hidden="true">🤝</span>{lang==="zh"?"咨询合作":"PARTNER WITH US"}</button>{contactOpen&&<div className="modal-backdrop"><div className="contact-modal" role="dialog" aria-modal="true" aria-label={lang==="zh"?"商务合作联系方式":"Business contact details"}><button ref={closeRef} className="modal-close" onClick={closeContact} aria-label={lang==="zh"?"关闭":"Close"}>×</button><p className="eyebrow dark"><span/> BUSINESS CONTACT</p><h2>{lang==="zh"?"微信咨询":"WeChat consultation"}</h2><ProgressiveImage src="/assets/contact/wechat-business.png" optimizedBase="/assets/optimized/contact/wechat-business" width={760} height={760} sizes="230px" alt={lang==="zh"?"商务合作微信二维码":"Business contact WeChat QR code"}/><strong>{lang==="zh"?"请注明公司名称以及来意，谢谢":"Please include your company name and purpose."}</strong><div className="copy-row"><code>RickLiu1992</code><button onClick={copyWechat}>{copied?(lang==="zh"?"微信号已复制":"Copied"):(lang==="zh"?"复制微信号":"Copy ID")}</button></div><a className="modal-email" href="mailto:rick@sellswell.cn">rick@sellswell.cn ↗</a></div></div>}</main>
+}
+
 export function PageHero({eyebrow,title,description,media}:{eyebrow:string;title:ReactNode;description:string;media?:ReactNode}){return <section className={`inner-hero${media?" inner-hero-with-media":""}`}><div className="inner-grid"/><div className="inner-hero-copy"><p className="eyebrow"><span/>{eyebrow}</p><h1>{title}</h1><p>{description}</p></div>{media}<div className="inner-index">SELLSWELL<br/>GLOBAL E-COMMERCE</div></section>}

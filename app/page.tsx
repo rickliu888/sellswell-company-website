@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import SiteFooter from "./components/SiteFooter";
 import SymbolIcon from "./components/SymbolIcon";
 import ProgressiveImage from "./components/ProgressiveImage";
@@ -32,6 +31,7 @@ export default function Home() {
   const [lang, setLang] = useState<"zh" | "en">("zh");
   const [contactOpen, setContactOpen] = useState(false);
   const [copied, setCopied] = useState("");
+  const contactTriggerRef = useRef<HTMLElement | null>(null);
   const t = copy[lang];
 
   useEffect(() => {
@@ -44,6 +44,17 @@ export default function Home() {
     window.addEventListener("sellswell-language-change", onLanguageChange);
     return () => window.removeEventListener("sellswell-language-change", onLanguageChange);
   }, []);
+  useEffect(() => {
+    if (!contactOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    contactTriggerRef.current = document.activeElement as HTMLElement;
+    document.querySelector<HTMLButtonElement>(".contact-modal .modal-close")?.focus();
+    const close = () => { setContactOpen(false); requestAnimationFrame(() => contactTriggerRef.current?.focus()); };
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") close(); };
+    window.addEventListener("keydown", onKeyDown);
+    return () => { document.body.style.overflow = previousOverflow; window.removeEventListener("keydown", onKeyDown); };
+  }, [contactOpen]);
   const copyValue = async (value: string, label: string) => {
     await navigator.clipboard.writeText(value); setCopied(label); setTimeout(() => setCopied(""), 1800);
   };
@@ -52,7 +63,7 @@ export default function Home() {
     <section className="hero" id="top">
       <div className="hero-grid" aria-hidden="true" /><div className="hero-orbit orbit-one"/><div className="hero-orbit orbit-two"/>
       <div className="hero-copy"><p className="eyebrow"><span/> LINKING QUALITY TO THE WORLD</p><h1>{t.hero}</h1><p className="hero-description">{t.intro}</p>
-        <div className="hero-actions"><Link className="button primary" href="/business">{t.business}<span>↗</span></Link><Link className="button secondary" href="/partners">{t.partner}</Link></div>
+        <div className="hero-actions"><a className="button primary" href="/business">{t.business}<span>↗</span></a><a className="button secondary" href="/partners">{t.partner}</a></div>
       </div>
       <div className="world-stage" aria-label="Global business network"><div className="globe"><div className="longitude l1"/><div className="longitude l2"/><div className="latitude a1"/><div className="latitude a2"/><span className="market-point asia"><i/>{lang==="zh"?"东南亚":"Southeast Asia"}<small>{lang==="zh"?"核心市场":"Core market"}</small></span><span className="market-point usa"><i/>{lang==="zh"?"美国":"USA"}<small>{lang==="zh"?"持续深耕":"Growing"}</small></span><span className="market-point brazil"><i/>{lang==="zh"?"巴西":"Brazil"}<small>{lang==="zh"?"正在布局":"Launching"}</small></span></div><p className="stage-caption">GLOBAL BUSINESS NETWORK <b>10+</b></p></div>
       <div className="hero-foot"><span>{lang==="zh"?"君行千里，万事可为":"Go far. Make great things possible."}</span><span className="scroll-hint">SCROLL <i/></span></div>
@@ -75,9 +86,9 @@ export default function Home() {
 
     <section className="partner-section" id="partners"><div className="partner-heading"><p className="eyebrow dark"><span/> GROW TOGETHER</p><h2>{lang==="zh"?"你专注做好产品，我们共同打开全球市场":"You make great products. Together, we open global markets."}</h2></div><div className="case-card"><div className="case-label">THAILAND / AUTOMOTIVE</div><div className="case-result"><strong>2<sup>×</sup></strong><span>{lang==="zh"?"合作次年销售额、毛利均翻倍":"Sales and profit in year two"}</span></div><div className="case-result"><strong>4<small>/5</small></strong><span>{lang==="zh"?"TikTok汽配垂类TOP 5中的合作品牌店":"Partner-operated stores in TikTok category Top 5"}</span></div><p>{lang==="zh"?"通过本地化内容、平台运营与品牌联合增长，帮助泰国本地汽配工厂成长为深受车主信赖的本土品牌。":"Localized content, platform operations and joint brand building helped a Thai factory become a trusted local automotive brand."}</p><button onClick={()=>setContactOpen(true)}>{lang==="zh"?"洽谈供应链合作":"Discuss a partnership"} ↗</button></div></section>
 
-    <section className="team-section" id="about"><div className="team-images"><ProgressiveImage className="team-main" src="/assets/team/team-cliff-hd-16x9-v2.jpg" optimizedBase="/assets/optimized/team/team-cliff-hd-16x9-v2" width={2560} height={1440} sizes="(max-width: 1050px) 100vw, 55vw" alt="事为与八千里路团队海边山崖团建"/><ProgressiveImage className="team-small" src="/assets/team/team-coast.jpg" optimizedBase="/assets/optimized/team/team-coast" width={1600} height={900} sizes="(max-width: 1050px) 58vw, 25vw" alt="事为与八千里路团队团建"/></div><div className="team-copy"><p className="eyebrow dark"><span/> PEOPLE & CULTURE</p><h2 className={lang==="zh"?"team-title-zh":undefined}>{lang==="zh"?<>年轻、专业，<br/>一起把事情做成</>:"Young, professional and built to deliver"}</h2><p>{lang==="zh"?"我们来自互联网与跨境一线，相信长期主义，也愿意让优秀伙伴共享公司的长期成长。":"We come from frontline internet and global commerce teams, believe in long-term value, and share growth with exceptional people."}</p><Link href="/about">{lang==="zh"?"走进事为团队":"Meet our team"} ↗</Link></div></section>
+    <section className="team-section" id="about"><div className="team-images"><ProgressiveImage className="team-main" src="/assets/team/team-cliff-hd-16x9-v2.jpg" optimizedBase="/assets/optimized/team/team-cliff-hd-16x9-v2" width={2560} height={1440} sizes="(max-width: 1050px) 100vw, 55vw" alt="事为与八千里路团队海边山崖团建"/><ProgressiveImage className="team-small" src="/assets/team/team-coast.jpg" optimizedBase="/assets/optimized/team/team-coast" width={1600} height={900} sizes="(max-width: 1050px) 58vw, 25vw" alt="事为与八千里路团队团建"/></div><div className="team-copy"><p className="eyebrow dark"><span/> PEOPLE & CULTURE</p><h2 className={lang==="zh"?"team-title-zh":undefined}>{lang==="zh"?<>年轻、专业，<br/>一起把事情做成</>:"Young, professional and built to deliver"}</h2><p>{lang==="zh"?"我们来自互联网与跨境一线，相信长期主义，也愿意让优秀伙伴共享公司的长期成长。":"We come from frontline internet and global commerce teams, believe in long-term value, and share growth with exceptional people."}</p><a href="/about">{lang==="zh"?"走进事为团队":"Meet our team"} ↗</a></div></section>
 
-    <section className="closing" id="careers"><div><span>FOR PARTNERS</span><h2>{lang==="zh"?"寻找全球增长机会？":"Ready for global growth?"}</h2><button onClick={()=>setContactOpen(true)}>{lang==="zh"?"洽谈商务合作":"Talk to us"} ↗</button></div><div><span>FOR TALENT</span><h2>{lang==="zh"?"寻找值得投入的事业？":"Build something that matters."}</h2><Link href="/careers">{lang==="zh"?"加入事为":"Join SellsWell"} ↗</Link></div></section>
+    <section className="closing" id="careers"><div><span>FOR PARTNERS</span><h2>{lang==="zh"?"寻找全球增长机会？":"Ready for global growth?"}</h2><button onClick={()=>setContactOpen(true)}>{lang==="zh"?"洽谈商务合作":"Talk to us"} ↗</button></div><div><span>FOR TALENT</span><h2>{lang==="zh"?"寻找值得投入的事业？":"Build something that matters."}</h2><a href="/careers">{lang==="zh"?"加入事为":"Join SellsWell"} ↗</a></div></section>
 
     <SiteFooter lang={lang}/>
 

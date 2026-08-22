@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @next/next/no-img-element -- These local portraits are tiny pre-compressed assets; an image runtime adds no useful optimization. */
 import SiteFrame,{PageHero} from "../components/SiteFrame";
 import ProgressiveImage from "../components/ProgressiveImage";
 import VideoPlaceholder from "../components/VideoPlaceholder";
