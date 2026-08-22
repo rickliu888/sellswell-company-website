@@ -63,6 +63,7 @@ test("keeps reliable navigation, accessible mobile controls, and cache policy co
 test("production container includes public static assets", async () => {
   const dockerfile = await readFile(new URL("../Dockerfile.ecs", import.meta.url), "utf8");
   assert.match(dockerfile, /COPY --from=build \/app\/public \.\/public/);
+  assert.match(dockerfile, /static-server\.mjs/);
 });
 
 test("language switch updates document and social metadata", async () => {
