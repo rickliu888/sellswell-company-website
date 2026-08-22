@@ -20,8 +20,9 @@ createServer(async (request, response) => {
     if (!stat.isFile()) throw new Error("not a file");
     const headers = {
       "Accept-Ranges": "bytes",
-      "Cache-Control": "public, max-age=31536000, immutable",
+      "Cache-Control": pathname === "/assets/site-sw.js" ? "no-cache" : "public, max-age=31536000, immutable",
       "Content-Type": mime[extname(file).toLowerCase()] || "application/octet-stream",
+      ...(pathname === "/assets/site-sw.js" ? { "Service-Worker-Allowed": "/" } : {}),
     };
     const match = /^bytes=(\d*)-(\d*)$/.exec(request.headers.range || "");
     if (match) {

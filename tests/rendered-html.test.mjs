@@ -53,6 +53,9 @@ test("keeps reliable navigation, accessible mobile controls, and cache policy co
   assert.match(header, /document\.body\.style\.overflow = "hidden"/);
   assert.match(header, /className="menu-backdrop"/);
   assert.match(header, /onClick=\{\(\) => closeMenu\(true\)\}/);
+  assert.doesNotMatch(header, /is-navigating|setNavigating/);
+  assert.match(header, /link\.rel = "prefetch"/);
+  assert.match(header, /serviceWorker\.register\("\/assets\/site-sw\.js"/);
   assert.match(header, /\["\/", "首页", "Home"\]/);
   assert.match(loading, /route-loading/);
   assert.match(image, /image\/avif/);
@@ -61,6 +64,15 @@ test("keeps reliable navigation, accessible mobile controls, and cache policy co
   assert.match(video, /preload="none"/);
   assert.match(worker, /stale-while-revalidate=86400/);
   assert.match(cache, /max-age=31536000, immutable/);
+  assert.match(cache, /Service-Worker-Allowed: \//);
+});
+
+test("caches visited tab pages for instant repeat navigation", async () => {
+  const sw = await readFile(new URL("../public/assets/site-sw.js", import.meta.url), "utf8");
+  assert.match(sw, /const ROUTES = \["\/", "\/business", "\/ai"/);
+  assert.match(sw, /event\.request\.mode !== "navigate"/);
+  assert.match(sw, /caches\.match\(url\.pathname\)/);
+  assert.match(sw, /response \|\| refresh/);
 });
 
 test("production container includes public static assets", async () => {
