@@ -118,3 +118,10 @@ test("provides a branded bilingual not-found page", async () => {
   assert.match(notFound, /This page could not be found/);
   assert.match(notFound, /href="\/"/);
 });
+
+test("uses the approved operations assistant job title", async () => {
+  const careers = await readFile(new URL("../app/careers/page.tsx", import.meta.url), "utf8");
+  assert.match(careers, /Shopee \/ TikTok 店铺运营助理/);
+  assert.match(careers, /Shopee \/ TikTok Store Operations Assistant/);
+  assert.doesNotMatch(careers, /店铺运营实习生|Store Operations Intern/);
+});
