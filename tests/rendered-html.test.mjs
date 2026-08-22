@@ -34,6 +34,7 @@ test("server-renders the SellsWell homepage and progressive media", async () => 
   assert.match(html, /type="image\/avif"/);
   assert.match(html, /type="image\/webp"/);
   assert.match(html, /loading="lazy"/);
+  assert.match(html, /sellswell-social-cover-v2\.jpg/);
 });
 
 test("keeps reliable navigation, accessible mobile controls, and cache policy configured", async () => {
