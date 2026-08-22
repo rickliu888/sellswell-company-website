@@ -75,6 +75,17 @@ test("caches visited tab pages for instant repeat navigation", async () => {
   assert.match(sw, /response \|\| refresh/);
 });
 
+test("balances footer content on desktop and stacks it on mobile", async () => {
+  const [footer, css] = await Promise.all([
+    readFile(new URL("../app/components/SiteFooter.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+  assert.match(footer, /className="footer-primary"/);
+  assert.match(footer, /className="footer-secondary"/);
+  assert.match(css, /footer\{display:grid;grid-template-columns:/);
+  assert.match(css, /@media\(max-width:800px\)\{footer\{display:block\}/);
+});
+
 test("production container includes public static assets", async () => {
   const dockerfile = await readFile(new URL("../Dockerfile.ecs", import.meta.url), "utf8");
   assert.match(dockerfile, /COPY --from=build \/app\/public \.\/public/);
