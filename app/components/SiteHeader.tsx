@@ -75,13 +75,18 @@ export default function SiteHeader() {
     "--indicator-width": `${indicator.width}px`,
   } as CSSProperties;
 
-  return <header className={`nav-shell${navigating ? " is-navigating" : ""}`}>
+  const closeMenu = (restoreFocus = false) => {
+    setMenuOpen(false);
+    if (restoreFocus) requestAnimationFrame(() => menuButtonRef.current?.focus());
+  };
+
+  return <><header className={`nav-shell${navigating ? " is-navigating" : ""}`}>
     <a className="brand" href="/" aria-label={lang === "zh" ? "返回事为电商首页" : "Return to SellsWell home"}><img src="/assets/brand/logo-white.png?v=20260822-2" width="2235" height="764" fetchPriority="high" decoding="async" alt="事为电商 SellsWell E-commerce" /></a>
     <nav id="site-navigation" ref={navRef} className={menuOpen ? "mobile-open" : ""} aria-label={lang === "zh" ? "主导航" : "Main navigation"}>
-      {nav.map(([href, zh, en]) => <a className={pathname === href ? "active" : ""} href={href} key={href} onClick={() => { setMenuOpen(false); if (pathname !== href) setNavigating(true); }}>{lang === "zh" ? zh : en}</a>)}
+      {nav.map(([href, zh, en]) => <a className={pathname === href ? "active" : ""} href={href} key={href} onClick={() => { closeMenu(); if (pathname !== href) setNavigating(true); }}>{lang === "zh" ? zh : en}</a>)}
       <i className={`nav-indicator${indicator.ready ? " ready" : ""}`} style={style} aria-hidden="true" />
     </nav>
     <button className="language" type="button" onClick={toggleLanguage}>{lang === "zh" ? "中 / EN" : "EN / 中"}</button>
     <button ref={menuButtonRef} className="menu-button" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="site-navigation" aria-label={lang === "zh" ? (menuOpen ? "关闭导航" : "打开导航") : (menuOpen ? "Close navigation" : "Open navigation")}><i/><i/></button>
-  </header>;
+  </header>{menuOpen && <button className="menu-backdrop" type="button" tabIndex={-1} onClick={() => closeMenu(true)} aria-label={lang === "zh" ? "关闭导航遮罩" : "Close navigation overlay"} />}</>;
 }

@@ -50,6 +50,8 @@ test("keeps reliable navigation, accessible mobile controls, and cache policy co
   assert.match(header, /aria-expanded=\{menuOpen\}/);
   assert.match(header, /event\.key !== "Escape"/);
   assert.match(header, /document\.body\.style\.overflow = "hidden"/);
+  assert.match(header, /className="menu-backdrop"/);
+  assert.match(header, /onClick=\{\(\) => closeMenu\(true\)\}/);
   assert.match(header, /\["\/", "首页", "Home"\]/);
   assert.match(loading, /route-loading/);
   assert.match(image, /image\/avif/);
