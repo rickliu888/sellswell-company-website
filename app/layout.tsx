@@ -1,25 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SiteHeader from "./components/SiteHeader";
+import { pageMetadata, siteUrl } from "./seo";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sellswell-company.jannica-8000.chatgpt.site"),
-  title: "事为电商 | 让世界重新认识中国品质",
-  description: "事为电商连接中国优质供应链与全球市场，专注海外实战运营、AI系统提效、供应链协同与本地化履约。",
-  icons: { icon: "/assets/brand/mark-color.png" },
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    locale: "zh_CN",
-    siteName: "事为电商",
-    title: "事为电商 | 让世界重新认识中国品质",
-    description: "连接中国优质供应链与全球市场，专注海外实战运营、AI系统提效、供应链协同与本地化履约。",
-    url: "/",
-  },
-  twitter: {
-    card: "summary",
-    title: "事为电商 | 让世界重新认识中国品质",
-    description: "连接中国优质供应链与全球市场，专注海外实战运营、AI系统提效、供应链协同与本地化履约。",
+  ...pageMetadata("/", "事为电商 SellsWell | 让世界重新认识中国品质", "事为电商连接中国优质供应链与全球市场，专注海外实战运营、AI系统提效、供应链协同与本地化履约。"),
+  metadataBase: new URL(siteUrl),
+  icons: {
+    icon: [{ url: "/assets/brand/favicon-mark-v2.png", type: "image/png", sizes: "764x764" }],
+    shortcut: "/assets/brand/favicon-mark-v2.png",
+    apple: "/assets/brand/favicon-mark-v2.png",
   },
 };
 

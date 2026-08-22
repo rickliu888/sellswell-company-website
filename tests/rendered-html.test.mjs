@@ -37,16 +37,23 @@ test("server-renders the SellsWell homepage and progressive media", async () => 
 });
 
 test("keeps navigation, loading feedback, and cache policy configured", async () => {
-  const [header, loading, image, cache] = await Promise.all([
+  const [header, loading, image, video, worker, cache] = await Promise.all([
     readFile(new URL("../app/components/SiteHeader.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/loading.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/ProgressiveImage.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/VideoPlaceholder.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../worker/index.ts", import.meta.url), "utf8"),
     readFile(new URL("../public/_headers", import.meta.url), "utf8"),
   ]);
   assert.match(header, /router\.prefetch\(href\)/);
-  assert.match(header, /\["\/", "首页"\]/);
+  assert.match(header, /requestIdleCallback/);
+  assert.match(header, /onPointerDown/);
+  assert.match(header, /\["\/", "首页", "Home"\]/);
   assert.match(loading, /route-loading/);
   assert.match(image, /image\/avif/);
   assert.match(image, /imageRef\.current\?\.complete/);
+  assert.match(image, /fetchPriority=\{priority \? "high" : "low"\}/);
+  assert.match(video, /preload="none"/);
+  assert.match(worker, /stale-while-revalidate=86400/);
   assert.match(cache, /max-age=31536000, immutable/);
 });
