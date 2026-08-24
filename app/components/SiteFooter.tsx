@@ -4,7 +4,7 @@ export default function SiteFooter({lang="zh"}:{lang?:"zh"|"en"}){
     <div className="footer-primary">
       <a className="site-footer-logo" href="/" aria-label={lang==="zh"?"返回首页":"Return home"}><img src="/assets/brand/logo-white.png?v=20260822-2" width="2235" height="764" loading="lazy" decoding="async" alt="SellsWell"/></a>
       <p>{lang==="zh"?"链接全球，让好产品被世界看见。":"Connecting quality products with the world."}</p>
-      <div className="footer-contact"><span>{lang==="zh"?"商务合作":"BUSINESS"} <a href="mailto:rick@sellswell.cn">rick@sellswell.cn</a></span><span>{lang==="zh"?"加入我们":"CAREERS"} <a href="mailto:jennyyao@sellswell.cn">jennyyao@sellswell.cn</a></span></div>
+      <div className="footer-contact"><span>{lang==="zh"?"商务合作":"BUSINESS"} <a href="mailto:business@sellswell.cn">business@sellswell.cn</a></span><span>{lang==="zh"?"加入我们":"CAREERS"} <a href="mailto:hr@sellswell.cn">hr@sellswell.cn</a></span></div>
     </div>
     <div className="footer-secondary">
       <div className="addresses"><span>{lang==="zh"?"福州｜福建省福州市闽侯县高新区创新园13栋歌航电子大厦301室":"Fuzhou | Room 301, Gehang Electronics Building, Innovation Park, Minhou County, Fuzhou, Fujian"}</span><span>{lang==="zh"?"广州｜广东省广州市天河区白沙水路91号创兴港1栋305室":"Guangzhou | Room 305, Building 1, Chuangxing Port, 91 Baishashui Road, Tianhe District, Guangzhou"}</span></div>

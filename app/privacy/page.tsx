@@ -10,7 +10,7 @@ export default function Privacy(){const en=useLanguage()==="en";return <SiteFram
   ["6. Your choices and rights","Subject to applicable law, you may request access, correction or deletion of personal information you provided, or withdraw consent where processing relies on consent. Contact us using the details below. Certain information may need to be retained where required by law."],
   ["7. Minors","This corporate website is not directed to children. If you believe a minor has provided personal information without appropriate guardian authorization, please contact us."],
   ["8. Updates","We may update this policy to reflect changes to the website, our practices or legal requirements. The latest version and effective date will be published on this page."],
-  ["9. Contact","Fuzhou SellsWell E-commerce Co., Ltd. · Business: rick@sellswell.cn · Recruitment: jennyyao@sellswell.cn"]
+  ["9. Contact","Fuzhou SellsWell E-commerce Co., Ltd. · Business: business@sellswell.cn · Recruitment: hr@sellswell.cn"]
 ]:[
   ["一、适用范围","本政策适用于事为电商官方网站 www.sellswell.cn。网站所链接的第三方网站或系统适用其各自的隐私规则，本政策不适用于该等第三方服务。"],
   ["二、我们处理的信息","当前官网无需注册账号，也不会直接收集支付信息。当您通过电子邮件或微信联系我们，或通过自己的邮件客户端投递简历时，我们会处理您主动提供的信息，例如姓名、联系方式、公司名称、咨询内容及简历信息。为保障网站安全和稳定运行，托管及安全服务商也可能处理IP地址、浏览器类型、访问时间、请求页面等基础技术日志。"],
@@ -20,5 +20,5 @@ export default function Privacy(){const en=useLanguage()==="en";return <SiteFram
   ["六、您的权利","在适用法律规定的范围内，您可以请求查阅、更正或删除您提供的个人信息，或者在处理基于同意时撤回同意。您可以通过下方联系方式提出请求；法律要求保留的信息可能无法立即删除。"],
   ["七、未成年人","本网站是企业官方网站，不以未成年人为主要服务对象。如您认为未成年人未经适当监护人授权向我们提供了个人信息，请联系我们。"],
   ["八、政策更新","我们可能根据网站功能、业务实践或法律要求的变化更新本政策，并在本页面公布最新版本与生效日期。"],
-  ["九、联系我们","福州事为电子商务有限公司 · 商务邮箱：rick@sellswell.cn · 招聘邮箱：jennyyao@sellswell.cn"]
+  ["九、联系我们","福州事为电子商务有限公司 · 商务邮箱：business@sellswell.cn · 招聘邮箱：hr@sellswell.cn"]
 ]).map(x=><section key={x[0]}><h2>{x[0]}</h2><p>{x[1]}</p></section>)}</article></SiteFrame>}
