@@ -105,6 +105,8 @@ test("balances footer content on desktop and stacks it on mobile", async () => {
   ]);
   assert.match(footer, /className="footer-primary"/);
   assert.match(footer, /className="footer-secondary"/);
+  assert.match(footer, /闽ICP备2026030882号-1/);
+  assert.match(footer, /https:\/\/beian\.miit\.gov\.cn\//);
   assert.match(css, /footer\{display:grid;grid-template-columns:/);
   assert.match(css, /@media\(max-width:800px\)\{footer\{display:block\}/);
 });
