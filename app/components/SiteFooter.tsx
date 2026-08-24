@@ -8,7 +8,7 @@ export default function SiteFooter({lang="zh"}:{lang?:"zh"|"en"}){
     </div>
     <div className="footer-secondary">
       <div className="addresses"><span>{lang==="zh"?"福州｜福建省福州市闽侯县高新区创新园13栋歌航电子大厦301室":"Fuzhou | Room 301, Gehang Electronics Building, Innovation Park, Minhou County, Fuzhou, Fujian"}</span><span>{lang==="zh"?"广州｜广东省广州市天河区白沙水路91号创兴港1栋305室":"Guangzhou | Room 305, Building 1, Chuangxing Port, 91 Baishashui Road, Tianhe District, Guangzhou"}</span></div>
-      <div className="footer-legal"><a href="/privacy">{lang==="zh"?"隐私政策":"Privacy Policy"}</a><a href="/terms">{lang==="zh"?"使用条款":"Terms of Use"}</a></div>
+      <div className="footer-legal"><a href="/insights">{lang==="zh"?"事为资讯":"Insights"}</a><a href="/privacy">{lang==="zh"?"隐私政策":"Privacy Policy"}</a><a href="/terms">{lang==="zh"?"使用条款":"Terms of Use"}</a></div>
     </div>
     <div className="copyright">© 2026 {lang==="zh"?"福州事为电子商务有限公司":"Fuzhou SellsWell E-commerce Co., Ltd."} <span>www.sellswell.cn</span><a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">闽ICP备2026030882号-1</a></div>
   </footer>

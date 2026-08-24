@@ -1,0 +1,23 @@
+import SiteFrame from "../components/SiteFrame";
+import type { Article } from "./articles";
+
+export default function ArticlePage({ article }: { article: Article }) {
+  return <SiteFrame active="insights">
+    <article className="insight-article">
+      <header className="insight-hero">
+        <p>{article.eyebrow} · 事为资讯</p>
+        <h1>{article.title}</h1>
+        <div><time dateTime="2026-08-24">2026.08.24</time><span>福州事为电子商务有限公司</span></div>
+      </header>
+      <div className="article-layout">
+        <aside aria-label="文章目录"><b>本文内容</b>{article.sections.map((section, index) => <a href={`#section-${index + 1}`} key={section.heading}>{String(index + 1).padStart(2,"0")} · {section.heading}</a>)}</aside>
+        <div className="article-body">
+          <p className="article-lead">{article.lead}</p>
+          {article.sections.map((section, index) => <section id={`section-${index + 1}`} key={section.heading}><span>{String(index + 1).padStart(2,"0")}</span><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section>)}
+          <div className="article-related"><b>继续了解事为与八千里路</b>{article.related.map((item) => <a href={item.href} key={item.href}>{item.label} ↗</a>)}</div>
+          <a className="back-to-insights" href="/insights">← 返回事为资讯</a>
+        </div>
+      </div>
+    </article>
+  </SiteFrame>;
+}

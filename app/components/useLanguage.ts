@@ -11,6 +11,7 @@ const englishMetadata: Record<string, { title: string; description: string }> = 
   "/partners": { title: "Partnerships | SellsWell E-commerce", description: "Partner with SellsWell to bring quality products and brands to global markets through localized operations, content growth and fulfillment." },
   "/about": { title: "About SellsWell | Global E-commerce Team", description: "Learn about SellsWell's journey, long-term values, leadership team and global vision." },
   "/careers": { title: "Careers | Join SellsWell", description: "Explore career opportunities, team culture, professional growth and benefits at SellsWell in Fuzhou and Guangzhou." },
+  "/insights": { title: "Insights | SellsWell and 8000 Miles", description: "Learn about SellsWell, 8000 Miles, their affiliated companies, global e-commerce operations and supply-chain partnerships." },
   "/privacy": { title: "Privacy Policy | SellsWell E-commerce", description: "Learn how the SellsWell corporate website processes website access, contact and recruitment information." },
   "/terms": { title: "Terms of Use | SellsWell E-commerce", description: "Read the terms governing access to and use of the SellsWell corporate website." },
 };

@@ -11,6 +11,7 @@ const nav = [
   ["/ai", "AI系统赋能", "AI Enablement"],
   ["/partners", "供应链合作", "Partnerships"],
   ["/about", "关于事为", "About"],
+  ["/insights", "事为资讯", "Insights"],
   ["/careers", "加入我们", "Careers"],
 ] as const;
 
@@ -94,7 +95,7 @@ export default function SiteHeader() {
   return <><header className="nav-shell">
     <a className="brand" href="/" aria-label={lang === "zh" ? "返回事为电商首页" : "Return to SellsWell home"}><img src="/assets/brand/logo-white.png?v=20260822-2" width="2235" height="764" fetchPriority="high" decoding="async" alt="事为电商 SellsWell E-commerce" /></a>
     <nav id="site-navigation" ref={navRef} className={menuOpen ? "mobile-open" : ""} aria-label={lang === "zh" ? "主导航" : "Main navigation"}>
-      {nav.map(([href, zh, en]) => <a className={pathname === href ? "active" : ""} href={href} key={href} onClick={() => closeMenu()}>{lang === "zh" ? zh : en}</a>)}
+      {nav.map(([href, zh, en]) => <a className={pathname === href || (href === "/insights" && pathname.startsWith("/insights/")) ? "active" : ""} href={href} key={href} onClick={() => closeMenu()}>{lang === "zh" ? zh : en}</a>)}
       <i className={`nav-indicator${indicator.ready ? " ready" : ""}`} style={style} aria-hidden="true" />
     </nav>
     <button className="language" type="button" onClick={toggleLanguage}>{lang === "zh" ? "中 / EN" : "EN / 中"}</button>

@@ -1,5 +1,5 @@
 const CACHE = "sellswell-pages-v1";
-const ROUTES = ["/", "/business", "/ai", "/partners", "/about", "/careers", "/privacy", "/terms"];
+const ROUTES = ["/", "/business", "/ai", "/partners", "/about", "/insights", "/careers", "/privacy", "/terms"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

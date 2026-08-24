@@ -150,3 +150,23 @@ test("uses the approved operations assistant job title", async () => {
   assert.match(careers, /Shopee \/ TikTok Store Operations Assistant/);
   assert.doesNotMatch(careers, /店铺运营实习生|Store Operations Intern/);
 });
+
+test("publishes the brand insights hub and four crawlable SEO articles", async () => {
+  const routes = [
+    ["/insights", /认识事为与八千里路/],
+    ["/insights/fuzhou-sellswell-company", /福州事为电子商务有限公司介绍/],
+    ["/insights/sellswell-and-8000-miles", /事为与八千里路是什么关系/],
+    ["/insights/fuzhou-8000-miles-company", /福州八千里路电子商务有限公司业务介绍/],
+    ["/insights/sellswell-global-ecommerce", /事为电商的跨境电商与供应链业务/],
+  ];
+  for (const [route, pattern] of routes) {
+    const response = await render(route);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, pattern);
+    assert.match(html, /canonical/);
+  }
+  const article = await (await render("/insights/sellswell-and-8000-miles")).text();
+  assert.match(article, /Article/);
+  assert.match(article, /BreadcrumbList/);
+});

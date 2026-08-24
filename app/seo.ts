@@ -66,6 +66,21 @@ export function breadcrumbData(path: string, name: string) {
   };
 }
 
+export function articleData(path: string, headline: string, description: string, datePublished = "2026-08-24") {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    datePublished,
+    dateModified: datePublished,
+    inLanguage: "zh-CN",
+    mainEntityOfPage: `${siteUrl}${path}`,
+    author: { "@id": `${siteUrl}/#organization` },
+    publisher: { "@id": `${siteUrl}/#organization` },
+  };
+}
+
 export function pageMetadata(path: string, title: string, description: string): Metadata {
   const url = path === "/" ? siteUrl : `${siteUrl}${path}`;
   return {
