@@ -86,6 +86,12 @@
 - 复核 `robots.txt`：允许全站抓取，并声明规范 Sitemap。
 - 复核 `sitemap.xml`：包含 14 个规范 URL，其中包含资讯栏目及全部 5 个专题页面。
 - 完整构建及 13 项自动化测试通过。
+- GitHub 正式源码提交：`14703994391f22359addbfc6fb62b27b1a54b2c0`。
+- Sites 第 19 版发布成功：`https://sellswell-company.jannica-8000.chatgpt.site`。
+- 阿里云正式环境已切换至镜像 `sellswell-company:1470399-amd64`；主站与静态资源服务的容器内健康检查分别返回 `SITE_OK`、`ASSET_OK`。
+- 正式域名经 Caddy 链路复核：14 个规范页面、`robots.txt`、`sitemap.xml` 与百度验证文件均返回 HTTP 200；测试不存在页面返回 HTTP 404；裸域名返回 HTTP 301 并跳转至 `www`。
+- 正式线上 HTML 已确认包含公开联系电话、首页品牌专题内链、业务页和合作页上下文内链、`FAQPage`、办公地址及真实照片路径。
+- 办公照片 AVIF 资源线上返回 HTTP 200、`image/avif`，文件大小 30,515 字节。
 
 ## 七、站外信息核对
 
