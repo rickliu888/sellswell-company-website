@@ -180,3 +180,18 @@ test("publishes the brand insights hub and five crawlable SEO articles", async (
   assert.match(about, /FAQPage/);
   assert.match(about, /事为电商是谁/);
 });
+
+test("connects company entities and topic pages with crawlable structured data and internal links", async () => {
+  const home = await (await render("/")).text();
+  assert.match(home, /href="\/insights\/fuzhou-sellswell-company"/);
+  assert.match(home, /href="\/insights\/sellswell-and-8000-miles"/);
+  assert.match(home, /\+86-180-5019-2494/);
+  assert.match(home, /https:\/\/www\.sellswell\.cn\/insights\/fuzhou-8000-miles-company/);
+
+  const business = await (await render("/business")).text();
+  assert.match(business, /href="\/insights\/sellswell-global-ecommerce"/);
+
+  const partners = await (await render("/partners")).text();
+  assert.match(partners, /href="\/insights\/fuzhou-8000-miles-company"/);
+  assert.match(partners, /href="\/insights\/fuzhou-office-location"/);
+});

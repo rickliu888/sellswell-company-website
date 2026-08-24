@@ -22,6 +22,7 @@ export const organizationGraph = {
       url: siteUrl,
       logo: `${siteUrl}/assets/brand/logo-color.png`,
       email: "business@sellswell.cn",
+      telephone: "+86-180-5019-2494",
       description: "事为官网及自营跨境电商主体，与福州八千里路电子商务有限公司、广州八千里路信息科技有限公司为关联公司并由同一团队协同运营。",
       address: {
         "@type": "PostalAddress",
@@ -36,6 +37,8 @@ export const organizationGraph = {
       "@id": `${siteUrl}/#fuzhou-8000-miles`,
       name: "福州八千里路电子商务有限公司",
       alternateName: ["福州八千里路", "八千里路电商", "八千里路"],
+      url: `${siteUrl}/insights/fuzhou-8000-miles-company`,
+      telephone: "+86-180-5019-2494",
       description: "事为的关联公司，由同一团队协同运营，负责国内与海外供应链合作。",
       address: {
         "@type": "PostalAddress",
@@ -50,6 +53,7 @@ export const organizationGraph = {
       "@id": `${siteUrl}/#guangzhou-8000-miles`,
       name: "广州八千里路信息科技有限公司",
       alternateName: ["广州八千里路", "八千里路", "8000 Miles"],
+      url: `${siteUrl}/about`,
       description: "事为的关联公司，由同一团队协同运营，聚焦欧美电商运营、AI应用、内容增长及海外市场业务。",
       address: {
         "@type": "PostalAddress",
