@@ -29,12 +29,35 @@ test("server-renders the SellsWell homepage and progressive media", async () => 
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>事为电商 SellsWell \| 让世界重新认识中国品质<\/title>/);
+  assert.match(html, /<title>福州事为电商官网 \| 事为与八千里路<\/title>/);
   assert.match(html, /让世界重新认识/);
+  assert.match(html, /福州事为电子商务有限公司/);
+  assert.match(html, /福州八千里路电子商务有限公司/);
+  assert.match(html, /广州八千里路信息科技有限公司/);
+  assert.match(html, /application\/ld\+json/);
+  assert.match(html, /https:\/\/schema\.org/);
   assert.match(html, /type="image\/avif"/);
   assert.match(html, /type="image\/webp"/);
   assert.match(html, /loading="lazy"/);
   assert.match(html, /sellswell-social-cover-v2\.jpg/);
+});
+
+test("publishes canonical brand pages and current sitemap metadata", async () => {
+  const [aboutResponse, sitemap] = await Promise.all([
+    render("/about"),
+    readFile(new URL("../public/sitemap.xml", import.meta.url), "utf8"),
+  ]);
+  const about = await aboutResponse.text();
+  assert.equal(aboutResponse.status, 200);
+  assert.match(about, /<title>关于事为与八千里路 \| 福州事为电子商务有限公司<\/title>/);
+  assert.match(about, /BreadcrumbList/);
+  assert.match(about, /关联公司与业务分工/);
+  assert.match(sitemap, /<lastmod>2026-08-24<\/lastmod>/);
+});
+
+test("keeps the Baidu site-verification file at the public root", async () => {
+  const verification = await readFile(new URL("../public/baidu_verify_codeva-LxjcmsW6Ly.html", import.meta.url), "utf8");
+  assert.equal(verification.trim(), "67b39cbe34da60c08a107d6dcd65369e");
 });
 
 test("keeps reliable navigation, accessible mobile controls, and cache policy configured", async () => {

@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 import SiteHeader from "./components/SiteHeader";
 import { pageMetadata, siteUrl } from "./seo";
+import { organizationGraph } from "./seo";
+import StructuredData from "./components/StructuredData";
 
 export const metadata: Metadata = {
-  ...pageMetadata("/", "事为电商 SellsWell | 让世界重新认识中国品质", "事为电商连接中国优质供应链与全球市场，专注海外实战运营、AI系统提效、供应链协同与本地化履约。"),
+  ...pageMetadata("/", "福州事为电商官网 | 事为与八千里路", "福州事为电子商务有限公司官方网站。事为电商与福州八千里路、广州八千里路为关联公司、同一团队，协同开展跨境电商、供应链合作、AI内容增长及全球市场运营。"),
   metadataBase: new URL(siteUrl),
   icons: {
     icon: [{ url: "/assets/brand/favicon-mark-v2.png", type: "image/png", sizes: "764x764" }],
@@ -14,5 +16,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="zh-CN"><body><SiteHeader/>{children}</body></html>;
+  return <html lang="zh-CN"><body><StructuredData data={organizationGraph}/><SiteHeader/>{children}</body></html>;
 }
