@@ -187,6 +187,9 @@ test("connects company entities and topic pages with crawlable structured data a
   assert.match(home, /href="\/insights\/sellswell-and-8000-miles"/);
   assert.match(home, /\+86-180-5019-2494/);
   assert.match(home, /https:\/\/www\.sellswell\.cn\/insights\/fuzhou-8000-miles-company/);
+  assert.match(home, /hasMap/);
+  assert.match(home, /map\.baidu\.com\/search\/福州事为电子商务有限公司/);
+  assert.match(home, /map\.baidu\.com\/search\/福州八千里路电子商务有限公司/);
 
   const business = await (await render("/business")).text();
   assert.match(business, /href="\/insights\/sellswell-global-ecommerce"/);
@@ -194,4 +197,9 @@ test("connects company entities and topic pages with crawlable structured data a
   const partners = await (await render("/partners")).text();
   assert.match(partners, /href="\/insights\/fuzhou-8000-miles-company"/);
   assert.match(partners, /href="\/insights\/fuzhou-office-location"/);
+
+  const office = await (await render("/insights/fuzhou-office-location")).text();
+  assert.match(office, /百度地图已收录/);
+  assert.match(office, /在百度地图查看福州事为电子商务有限公司/);
+  assert.match(office, /在百度地图查看福州八千里路电子商务有限公司/);
 });

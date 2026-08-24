@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 
 export const siteUrl = "https://www.sellswell.cn";
 
+export const baiduMapUrls = {
+  fuzhouSellswell: "https://map.baidu.com/search/福州事为电子商务有限公司",
+  fuzhou8000Miles: "https://map.baidu.com/search/福州八千里路电子商务有限公司",
+} as const;
+
 export const organizationGraph = {
   "@context": "https://schema.org",
   "@graph": [
@@ -23,6 +28,7 @@ export const organizationGraph = {
       logo: `${siteUrl}/assets/brand/logo-color.png`,
       email: "business@sellswell.cn",
       telephone: "+86-180-5019-2494",
+      hasMap: baiduMapUrls.fuzhouSellswell,
       description: "事为官网及自营跨境电商主体，与福州八千里路电子商务有限公司、广州八千里路信息科技有限公司为关联公司并由同一团队协同运营。",
       address: {
         "@type": "PostalAddress",
@@ -39,6 +45,7 @@ export const organizationGraph = {
       alternateName: ["福州八千里路", "八千里路电商", "八千里路"],
       url: `${siteUrl}/insights/fuzhou-8000-miles-company`,
       telephone: "+86-180-5019-2494",
+      hasMap: baiduMapUrls.fuzhou8000Miles,
       description: "事为的关联公司，由同一团队协同运营，负责国内与海外供应链合作。",
       address: {
         "@type": "PostalAddress",

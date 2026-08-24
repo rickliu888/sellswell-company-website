@@ -7,6 +7,7 @@ export type Article = {
   lead: string;
   sections: ArticleSection[];
   gallery?: { src: string; optimizedBase: string; alt: string; width: number; height: number; caption: string }[];
+  mapLinks?: { href: string; label: string }[];
   related: { href: string; label: string }[];
 };
 
@@ -59,6 +60,10 @@ export const articles: Article[] = [
     gallery: [
       { src: "/assets/optimized/office-location/sellswell-8000-miles-office-301.jpg", optimizedBase: "/assets/optimized/office-location/sellswell-8000-miles-office-301", alt: "福州事为电子商务有限公司与福州八千里路电子商务有限公司301办公室门牌", width: 1800, height: 1350, caption: "创新园13栋歌航电子大厦301室，公司索引牌与事为电商、八千里路标识。" },
       { src: "/assets/optimized/office-location/sellswell-8000-miles-reception.jpg", optimizedBase: "/assets/optimized/office-location/sellswell-8000-miles-reception", alt: "事为电商与八千里路福州办公室前台及品牌标识", width: 1800, height: 1350, caption: "福州办公室前台，墙面展示事为电商与八千里路品牌标识。" },
+    ],
+    mapLinks: [
+      { href: "https://map.baidu.com/search/福州事为电子商务有限公司", label: "在百度地图查看福州事为电子商务有限公司" },
+      { href: "https://map.baidu.com/search/福州八千里路电子商务有限公司", label: "在百度地图查看福州八千里路电子商务有限公司" },
     ],
     sections: [
       { heading: "两家福州公司的共同办公地址", paragraphs: ["福州事为电子商务有限公司与福州八千里路电子商务有限公司的公开办公地址为福建省福州市闽侯县高新区创新园13栋歌航电子大厦301室。该地址是团队日常办公、业务运营与合作沟通的实际办公地点。", "工商注册地址与实际办公地址可能因企业登记和办公调整而不同。官网展示的是当前对外公开的办公地址，合作到访前可通过官网邮箱提前联系确认。"] },
