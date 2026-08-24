@@ -80,6 +80,7 @@ test("keeps reliable navigation, accessible mobile controls, and cache policy co
   assert.match(header, /link\.rel = "prefetch"/);
   assert.match(header, /serviceWorker\.register\("\/assets\/site-sw\.js"/);
   assert.match(header, /\["\/", "首页", "Home"\]/);
+  assert.doesNotMatch(header, /\["\/insights", "事为资讯", "Insights"\]/);
   assert.match(loading, /route-loading/);
   assert.match(image, /image\/avif/);
   assert.match(image, /imageRef\.current\?\.complete/);
@@ -107,6 +108,8 @@ test("balances footer content on desktop and stacks it on mobile", async () => {
   assert.match(footer, /className="footer-secondary"/);
   assert.match(footer, /闽ICP备2026030882号-1/);
   assert.match(footer, /https:\/\/beian\.miit\.gov\.cn\//);
+  assert.match(footer, /className="footer-insights" href="\/insights"/);
+  assert.match(css, /\.footer-legal \.footer-insights/);
   assert.match(css, /footer\{display:grid;grid-template-columns:/);
   assert.match(css, /@media\(max-width:800px\)\{footer\{display:block\}/);
 });
