@@ -72,18 +72,40 @@
 1. 次日重新提交 5 个资讯页面。
 2. 复查 Robots 更新结果与 Sitemap 配额。
 3. 每周复查百度索引量及 10 个目标词第一页结果。
-4. 核对百度地图与 BOSS 直聘的公司名称、地址和官网链接。
+4. 跟进百度地图两项申请及 BOSS 直聘简介的公开同步状态。
 5. 持续发布真实业务、团队和供应链内容。
 
 ## 七、站外信息核对
 
 ### 百度地图
 
-- 福州事为电子商务有限公司：能够搜索到，但地点显示为“福建省闽侯县上街镇建平村科技东路10号中青大厦主楼1406室（推算位置）”，与官网当前展示的办公地址不一致。
-- 福州八千里路电子商务有限公司：未搜索到准确的同名地点。
+- 福州事为电子商务有限公司：已在百度地图提交地址纠错申请，目标办公地址为“福建省福州市闽侯县高新区创新园13栋歌航电子大厦301室”，当前审核中。
+- 福州八千里路电子商务有限公司：已在百度地图提交新增地点申请，办公地址同上，当前审核中。
+- 两项申请均已上传包含“事为电商”“八千里路”标识及 301 门牌的现场照片；审核完成前不重复提交。
 
 ### BOSS 直聘
 
-- 百度能够搜索到“福州事为电商”的 BOSS 直聘评价页面。
-- 搜索摘要显示：20-99人、电子商务、0个在招职位、0位BOSS。
-- 直接进入 BOSS 详情页时触发安全验证，因此官网链接、公司简介和地址仍需登录后进一步核对。
+- 百度能够搜索到“福州事为电商”的 BOSS 直聘页面。
+- 公共资料已核对：企业全称“福州事为电子商务有限公司”、20-99人、电子商务、办公地址“福州闽侯县歌航电子大厦301”，并展示官网 `https://www.sellswell.cn/`。
+- 已在 BOSS 后台将公司关系补充为：“福州事为电子商务有限公司与福州八千里路电子商务有限公司、广州八千里路信息科技有限公司为关联公司、同一团队，分别协同开展自营电商、供应链合作以及欧美电商、AI和内容增长业务。”
+- 修改后的简介尚未在公共页面同步，当前按平台缓存或审核延迟处理，暂不重复修改。
+
+## 八、关键词—页面映射
+
+| 目标关键词 | 主要承接页面 | 辅助页面 |
+| --- | --- | --- |
+| 福州事为、事为电商、事为、福州事为电子商务有限公司 | 首页 | `/about`、`/insights/fuzhou-sellswell-company` |
+| 事为八千里路、事为八千里 | `/insights/sellswell-and-8000-miles` | `/about`、`/insights/fuzhou-office-location` |
+| 福州八千里路、八千里路电商、福州八千里路电子商务有限公司 | `/insights/fuzhou-8000-miles-company` | `/partners`、`/insights/fuzhou-office-location` |
+| 八千里路 | `/insights/sellswell-and-8000-miles` | `/about`、`/partners` |
+
+## 九、下一次百度提交清单
+
+按以下优先级提交，避免重复提交已成功处理的核心页面：
+
+1. `https://www.sellswell.cn/insights/fuzhou-office-location`
+2. `https://www.sellswell.cn/insights`
+3. `https://www.sellswell.cn/insights/fuzhou-sellswell-company`
+4. `https://www.sellswell.cn/insights/sellswell-and-8000-miles`
+5. `https://www.sellswell.cn/insights/fuzhou-8000-miles-company`
+6. `https://www.sellswell.cn/insights/sellswell-global-ecommerce`

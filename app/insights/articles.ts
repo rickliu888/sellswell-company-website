@@ -6,6 +6,7 @@ export type Article = {
   eyebrow: string;
   lead: string;
   sections: ArticleSection[];
+  gallery?: { src: string; optimizedBase: string; alt: string; width: number; height: number; caption: string }[];
   related: { href: string; label: string }[];
 };
 
@@ -48,6 +49,23 @@ export const articles: Article[] = [
       { heading: "与事为电商的关系", paragraphs: ["福州八千里路与福州事为是关联公司、同一团队。福州八千里路侧重供应链合作，事为电商侧重官网及自营跨境电商业务，双方通过统一的市场判断和运营能力协同推进项目。"] },
     ],
     related: [{ href: "/partners", label: "查看供应链合作方式" }, { href: "/business", label: "了解团队全球运营能力" }],
+  },
+  {
+    slug: "fuzhou-office-location",
+    title: "福州事为与八千里路办公地址及办公环境",
+    description: "查看福州事为电子商务有限公司与福州八千里路电子商务有限公司的共同办公地址、301门牌及真实办公环境。",
+    eyebrow: "FUZHOU OFFICE",
+    lead: "福州事为电子商务有限公司与福州八千里路电子商务有限公司是关联公司、同一团队，两家公司共同在福建省福州市闽侯县高新区创新园13栋歌航电子大厦301室办公。以下现场照片展示了301门牌、事为电商与八千里路标识。",
+    gallery: [
+      { src: "/assets/optimized/office-location/sellswell-8000-miles-office-301.jpg", optimizedBase: "/assets/optimized/office-location/sellswell-8000-miles-office-301", alt: "福州事为电子商务有限公司与福州八千里路电子商务有限公司301办公室门牌", width: 1800, height: 1350, caption: "创新园13栋歌航电子大厦301室，公司索引牌与事为电商、八千里路标识。" },
+      { src: "/assets/optimized/office-location/sellswell-8000-miles-reception.jpg", optimizedBase: "/assets/optimized/office-location/sellswell-8000-miles-reception", alt: "事为电商与八千里路福州办公室前台及品牌标识", width: 1800, height: 1350, caption: "福州办公室前台，墙面展示事为电商与八千里路品牌标识。" },
+    ],
+    sections: [
+      { heading: "两家福州公司的共同办公地址", paragraphs: ["福州事为电子商务有限公司与福州八千里路电子商务有限公司的公开办公地址为福建省福州市闽侯县高新区创新园13栋歌航电子大厦301室。该地址是团队日常办公、业务运营与合作沟通的实际办公地点。", "工商注册地址与实际办公地址可能因企业登记和办公调整而不同。官网展示的是当前对外公开的办公地址，合作到访前可通过官网邮箱提前联系确认。"] },
+      { heading: "事为电商与八千里路是什么关系？", paragraphs: ["福州事为与福州八千里路是关联公司、同一团队。福州事为是官网及自营跨境电商主体；福州八千里路负责国内与海外供应链合作。广州八千里路信息科技有限公司同属关联公司，聚焦欧美电商运营、AI应用、内容增长及海外市场。", "清晰展示公司主体、团队关系和真实办公环境，有助于合作伙伴、求职者及搜索引擎准确识别事为与八千里路的品牌关系。"] },
+      { heading: "到访与业务联系", paragraphs: ["供应链合作、品牌出海及其他业务沟通，可通过官网公开邮箱 business@sellswell.cn 提前预约。招聘相关事项可通过 hr@sellswell.cn 联系。", "团队会根据具体业务内容，由对应公司主体与合作伙伴进一步沟通；具体合作权利和义务以正式签署的协议为准。"] },
+    ],
+    related: [{ href: "/about", label: "了解三家关联公司与团队" }, { href: "/insights/sellswell-and-8000-miles", label: "查看事为与八千里路的关系" }, { href: "/partners", label: "了解供应链合作" }],
   },
   {
     slug: "sellswell-global-ecommerce",

@@ -37,6 +37,13 @@ export const organizationGraph = {
       name: "福州八千里路电子商务有限公司",
       alternateName: ["福州八千里路", "八千里路电商", "八千里路"],
       description: "事为的关联公司，由同一团队协同运营，负责国内与海外供应链合作。",
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "CN",
+        addressRegion: "福建省",
+        addressLocality: "福州市",
+        streetAddress: "闽侯县高新区创新园13栋歌航电子大厦301室",
+      },
     },
     {
       "@type": "Organization",
@@ -78,6 +85,18 @@ export function articleData(path: string, headline: string, description: string,
     mainEntityOfPage: `${siteUrl}${path}`,
     author: { "@id": `${siteUrl}/#organization` },
     publisher: { "@id": `${siteUrl}/#organization` },
+  };
+}
+
+export function faqData(items: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
   };
 }
 

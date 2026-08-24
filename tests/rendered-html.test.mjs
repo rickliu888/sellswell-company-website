@@ -154,12 +154,13 @@ test("uses the approved operations assistant job title", async () => {
   assert.doesNotMatch(careers, /店铺运营实习生|Store Operations Intern/);
 });
 
-test("publishes the brand insights hub and four crawlable SEO articles", async () => {
+test("publishes the brand insights hub and five crawlable SEO articles", async () => {
   const routes = [
     ["/insights", /认识事为与八千里路/],
     ["/insights/fuzhou-sellswell-company", /福州事为电子商务有限公司介绍/],
     ["/insights/sellswell-and-8000-miles", /事为与八千里路是什么关系/],
     ["/insights/fuzhou-8000-miles-company", /福州八千里路电子商务有限公司业务介绍/],
+    ["/insights/fuzhou-office-location", /福州事为与八千里路办公地址及办公环境/],
     ["/insights/sellswell-global-ecommerce", /事为电商的跨境电商与供应链业务/],
   ];
   for (const [route, pattern] of routes) {
@@ -172,4 +173,10 @@ test("publishes the brand insights hub and four crawlable SEO articles", async (
   const article = await (await render("/insights/sellswell-and-8000-miles")).text();
   assert.match(article, /Article/);
   assert.match(article, /BreadcrumbList/);
+  const office = await (await render("/insights/fuzhou-office-location")).text();
+  assert.match(office, /歌航电子大厦301室/);
+  assert.match(office, /sellswell-8000-miles-office-301/);
+  const about = await (await render("/about")).text();
+  assert.match(about, /FAQPage/);
+  assert.match(about, /事为电商是谁/);
 });
