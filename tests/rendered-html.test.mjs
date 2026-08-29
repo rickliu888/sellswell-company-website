@@ -52,7 +52,9 @@ test("publishes canonical brand pages and current sitemap metadata", async () =>
   assert.match(about, /<title>关于事为与八千里路 \| 福州事为电子商务有限公司<\/title>/);
   assert.match(about, /BreadcrumbList/);
   assert.match(about, /关联公司与业务分工/);
-  assert.match(sitemap, /<lastmod>2026-08-24<\/lastmod>/);
+  assert.match(sitemap, /<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/);
+  assert.match(sitemap, /\/insights\/fuzhou-cross-border-ecommerce-supply-chain/);
+  assert.match(sitemap, /\/insights\/join-fuzhou-sellswell-ecommerce/);
 });
 
 test("keeps the Baidu site-verification file at the public root", async () => {
@@ -154,7 +156,7 @@ test("uses the approved operations assistant job title", async () => {
   assert.doesNotMatch(careers, /店铺运营实习生|Store Operations Intern/);
 });
 
-test("publishes the brand insights hub and five crawlable SEO articles", async () => {
+test("publishes the brand insights hub and seven crawlable SEO articles", async () => {
   const routes = [
     ["/insights", /认识事为与八千里路/],
     ["/insights/fuzhou-sellswell-company", /福州事为电子商务有限公司介绍/],
@@ -162,6 +164,8 @@ test("publishes the brand insights hub and five crawlable SEO articles", async (
     ["/insights/fuzhou-8000-miles-company", /福州八千里路电子商务有限公司业务介绍/],
     ["/insights/fuzhou-office-location", /福州事为与八千里路办公地址及办公环境/],
     ["/insights/sellswell-global-ecommerce", /事为电商的跨境电商与供应链业务/],
+    ["/insights/fuzhou-cross-border-ecommerce-supply-chain", /福州跨境电商供应链合作/],
+    ["/insights/join-fuzhou-sellswell-ecommerce", /加入福州事为电商/],
   ];
   for (const [route, pattern] of routes) {
     const response = await render(route);
@@ -202,4 +206,18 @@ test("connects company entities and topic pages with crawlable structured data a
   assert.match(office, /百度地图已收录/);
   assert.match(office, /在百度地图查看福州事为电子商务有限公司/);
   assert.match(office, /在百度地图查看福州八千里路电子商务有限公司/);
+});
+
+test("generates sitemap before builds and keeps Baidu Analytics opt-in", async () => {
+  const [packageJson, generator, analytics, staticServer] = await Promise.all([
+    readFile(new URL("../package.json", import.meta.url), "utf8"),
+    readFile(new URL("../scripts/generate-sitemap.mjs", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/BaiduAnalytics.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../scripts/static-server.mjs", import.meta.url), "utf8"),
+  ]);
+  assert.match(packageJson, /"prebuild": "npm run sitemap"/);
+  assert.match(generator, /page\.tsx/);
+  assert.match(analytics, /NEXT_PUBLIC_BAIDU_ANALYTICS_ID/);
+  assert.match(analytics, /\^\[a-f0-9\]\{32\}\$/i);
+  assert.match(staticServer, /application\/xml/);
 });

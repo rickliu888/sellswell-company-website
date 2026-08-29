@@ -4,6 +4,7 @@ export type Article = {
   title: string;
   description: string;
   eyebrow: string;
+  publishedAt: string;
   lead: string;
   sections: ArticleSection[];
   gallery?: { src: string; optimizedBase: string; alt: string; width: number; height: number; caption: string }[];
@@ -14,6 +15,7 @@ export type Article = {
 export const articles: Article[] = [
   {
     slug: "fuzhou-sellswell-company",
+    publishedAt: "2026-08-24",
     title: "福州事为电子商务有限公司介绍",
     description: "了解福州事为电子商务有限公司（事为电商、福州事为）的公司定位、全球电商业务、团队理念及关联公司分工。",
     eyebrow: "ABOUT SELLSWELL",
@@ -27,6 +29,7 @@ export const articles: Article[] = [
   },
   {
     slug: "sellswell-and-8000-miles",
+    publishedAt: "2026-08-24",
     title: "事为与八千里路是什么关系？",
     description: "说明事为、事为八千里路、福州八千里路及广州八千里路的关联关系、公司主体与业务分工。",
     eyebrow: "SELLSWELL & 8000 MILES",
@@ -40,6 +43,7 @@ export const articles: Article[] = [
   },
   {
     slug: "fuzhou-8000-miles-company",
+    publishedAt: "2026-08-24",
     title: "福州八千里路电子商务有限公司业务介绍",
     description: "了解福州八千里路电子商务有限公司（福州八千里路、八千里路电商）的供应链合作定位及其与事为的关系。",
     eyebrow: "8000 MILES FUZHOU",
@@ -53,6 +57,7 @@ export const articles: Article[] = [
   },
   {
     slug: "fuzhou-office-location",
+    publishedAt: "2026-08-24",
     title: "福州事为与八千里路办公地址及办公环境",
     description: "查看福州事为电子商务有限公司与福州八千里路电子商务有限公司的共同办公地址、301门牌及真实办公环境。",
     eyebrow: "FUZHOU OFFICE",
@@ -74,6 +79,7 @@ export const articles: Article[] = [
   },
   {
     slug: "sellswell-global-ecommerce",
+    publishedAt: "2026-08-24",
     title: "事为电商的跨境电商与供应链业务",
     description: "了解事为电商及八千里路团队如何通过全球平台运营、内容增长、AI系统、供应链与本地化履约推动业务增长。",
     eyebrow: "GLOBAL E-COMMERCE",
@@ -84,6 +90,34 @@ export const articles: Article[] = [
       { heading: "供应链与本地化履约", paragraphs: ["福州八千里路负责国内与海外供应链合作，将优质产品、稳定供给与市场运营连接起来。海外本地团队和履约能力则帮助项目适应当地消费者需求、交付环境和平台规则。", "从产品到内容、从平台到履约，团队通过长期协同减少环节割裂，让供应链伙伴更清楚地看到产品进入全球市场所需的完整能力。"] },
     ],
     related: [{ href: "/business", label: "查看全球业务布局" }, { href: "/ai", label: "了解 AI 系统赋能" }, { href: "/partners", label: "发起供应链合作" }],
+  },
+  {
+    slug: "fuzhou-cross-border-ecommerce-supply-chain",
+    publishedAt: "2026-08-29",
+    title: "福州跨境电商供应链合作：事为与八千里路如何协同",
+    description: "了解福州事为电商与福州八千里路如何连接产品供应、海外平台运营、内容增长及本地化履约。",
+    eyebrow: "SUPPLY CHAIN COOPERATION",
+    lead: "跨境电商供应链合作不只是采购和供货。福州事为电子商务有限公司与福州八千里路电子商务有限公司由同一团队协同运营，将产品供应、海外市场判断、平台运营、内容增长和履约能力连接起来。",
+    sections: [
+      { heading: "供应链合作由谁负责？", paragraphs: ["福州八千里路电子商务有限公司主要负责国内与海外供应链合作，面向中国优质工厂、海外本地工厂及希望进入全球市场的品牌方开展业务沟通。福州事为电子商务有限公司则侧重自营跨境电商与官网业务。", "两家公司是关联公司、同一团队，因此供应端的信息可以与海外运营端的市场反馈持续协同，减少产品、内容和销售环节之间的信息断层。"] },
+      { heading: "合作评估会关注什么？", paragraphs: ["团队会结合产品特点、供货稳定性、目标市场、平台规则及履约条件判断合作方式。对于不同产品，适合的市场、内容表达和备货节奏并不相同，需要基于真实业务条件逐项评估。", "目前团队重点关注汽摩配、家清用品、家居生活用品和文胸等类目，也欢迎其他具备产品力与稳定供应能力的合作伙伴联系交流。"] },
+      { heading: "从产品供给到海外增长", paragraphs: ["供应链能力需要与海外平台运营和本地化能力配合。事为与八千里路团队围绕 Shopee、TikTok Shop、Amazon 等平台场景积累运营实践，并通过内容测试、经营分析和本地履约反馈持续优化项目。", "具体项目将根据市场、合作内容与承接主体签署正式协议。官网公开信息用于帮助合作伙伴理解团队分工，实际权利和义务以双方协议为准。"] },
+    ],
+    related: [{ href: "/partners", label: "查看供应链合作方式" }, { href: "/insights/fuzhou-8000-miles-company", label: "了解福州八千里路" }, { href: "/insights/sellswell-global-ecommerce", label: "查看全球电商能力" }],
+  },
+  {
+    slug: "join-fuzhou-sellswell-ecommerce",
+    publishedAt: "2026-08-29",
+    title: "加入福州事为电商：团队文化、办公地点与招聘信息",
+    description: "了解福州事为电商团队文化、福州办公地点、业务方向和当前招聘信息，认识事为与八千里路团队。",
+    eyebrow: "CAREERS AT SELLSWELL",
+    lead: "福州事为电商与福州八千里路由同一团队协同运营。团队在福州高新区创新园13栋301室办公，围绕全球电商、供应链合作、内容增长与 AI 应用开展工作。",
+    sections: [
+      { heading: "团队在做什么？", paragraphs: ["团队持续深耕东南亚和美国市场，并关注欧洲与拉美的增长机会。日常工作涉及平台运营、内容营销、产品与供应链协作、本地履约和经营分析等环节。", "福州事为是官网及自营跨境电商主体；福州八千里路负责国内与海外供应链合作；广州八千里路聚焦欧美电商、AI应用、内容增长及海外市场。"] },
+      { heading: "团队文化与做事方式", paragraphs: ["“长远、务实、精进、主动”是团队共同遵循的做事方式。团队重视长期能力建设、真实业务结果和持续复盘，也鼓励成员主动发现问题、推动协作并沉淀方法。", "不同岗位承担的职责不同，具体任职要求、工作内容和发展方向均以官网招聘页面及正式招聘沟通为准。"] },
+      { heading: "办公地点与招聘渠道", paragraphs: ["福州团队的公开办公地址为福建省福州市闽侯县高新区创新园13栋歌航电子大厦301室。官网办公地址专题展示了301门牌及事为电商、八千里路的真实办公标识。", "求职者可在官网招聘页面查看当前岗位，通过 hr@sellswell.cn 联系招聘事项，也可在 BOSS 直聘搜索“福州事为电商”查看公开招聘信息。"] },
+    ],
+    related: [{ href: "/careers", label: "查看当前招聘岗位" }, { href: "/insights/fuzhou-office-location", label: "查看福州办公地址与环境" }, { href: "/insights/sellswell-and-8000-miles", label: "了解关联公司关系" }],
   },
 ];
 

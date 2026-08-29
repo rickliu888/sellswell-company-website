@@ -8,7 +8,7 @@ export default function ArticlePage({ article }: { article: Article }) {
       <header className="insight-hero">
         <p>{article.eyebrow} · 事为资讯</p>
         <h1>{article.title}</h1>
-        <div><time dateTime="2026-08-24">2026.08.24</time><span>福州事为电子商务有限公司</span></div>
+        <div><time dateTime={article.publishedAt}>{article.publishedAt.replaceAll("-", ".")}</time><span>福州事为电子商务有限公司</span></div>
       </header>
       <div className="article-layout">
         <aside aria-label="文章目录"><b>本文内容</b>{article.sections.map((section, index) => <a href={`#section-${index + 1}`} key={section.heading}>{String(index + 1).padStart(2,"0")} · {section.heading}</a>)}</aside>
