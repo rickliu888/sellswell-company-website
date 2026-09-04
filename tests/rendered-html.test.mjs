@@ -95,6 +95,7 @@ test("keeps reliable navigation, accessible mobile controls, and cache policy co
 
 test("caches visited tab pages for instant repeat navigation", async () => {
   const sw = await readFile(new URL("../public/assets/site-sw.js", import.meta.url), "utf8");
+  assert.match(sw, /const CACHE = "sellswell-pages-v2"/);
   assert.match(sw, /const ROUTES = \["\/", "\/business", "\/ai"/);
   assert.match(sw, /event\.request\.mode !== "navigate"/);
   assert.match(sw, /caches\.match\(url\.pathname\)/);

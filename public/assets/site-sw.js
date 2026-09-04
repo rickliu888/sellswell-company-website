@@ -1,4 +1,4 @@
-const CACHE = "sellswell-pages-v1";
+const CACHE = "sellswell-pages-v2";
 const ROUTES = ["/", "/business", "/ai", "/partners", "/about", "/insights", "/careers", "/privacy", "/terms"];
 
 self.addEventListener("install", (event) => {
