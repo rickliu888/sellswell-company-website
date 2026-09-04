@@ -95,7 +95,7 @@ test("keeps reliable navigation, accessible mobile controls, and cache policy co
 
 test("caches visited tab pages for instant repeat navigation", async () => {
   const sw = await readFile(new URL("../public/assets/site-sw.js", import.meta.url), "utf8");
-  assert.match(sw, /const CACHE = "sellswell-pages-v2"/);
+  assert.match(sw, /const CACHE = "sellswell-pages-v3"/);
   assert.match(sw, /const ROUTES = \["\/", "\/business", "\/ai"/);
   assert.match(sw, /event\.request\.mode !== "navigate"/);
   assert.match(sw, /caches\.match\(url\.pathname\)/);
@@ -201,6 +201,11 @@ test("connects company entities and topic pages with crawlable structured data a
   assert.match(about, /福州事为电子商务有限公司/);
   assert.match(about, /福州八千里路电子商务有限公司/);
   assert.match(about, /广州八千里路信息科技有限公司/);
+  assert.ok(
+    about.indexOf('class="inner-section office-row"') <
+      about.indexOf('class="inner-section soft entity-section"'),
+    "affiliated company details should appear at the end of the About page",
+  );
 
   const business = await (await render("/business")).text();
   assert.match(business, /href="\/insights\/sellswell-global-ecommerce"/);
